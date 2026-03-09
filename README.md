@@ -1,6 +1,7 @@
 # Node.js REST API for Social Media Site
 
 A RESTful API backend for a social media application, built with JavaScript and Node.js. Supports real-time communication via WebSockets alongside standard HTTP endpoints.
+> **Note:** Some npm packages may be deprecated and need to be switched for different ones.
 
 ## Tech Stack
 
@@ -62,14 +63,14 @@ JWT_SECRET=your_jwt_secret
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| POST | `/auth/register` | Register a new user |
+| PUT | `/auth/signup` | Register a new user |
 | POST | `/auth/login` | Log in and receive a token |
-| GET | `/users/:id` | Get user profile |
+| GET | `/auth/status` | Get user status |
+| PUT | `/auth/status` | Change user status |
 | PUT | `/users/:id` | Update user profile |
-| GET | `/posts` | Get all posts |
-| POST | `/posts` | Create a new post |
-| PUT | `/posts/:id/like` | Like/unlike a post |
-| DELETE | `/posts/:id` | Delete a post |
+| GET | `/feed/posts` | Get all posts |
+| POST | `/feed/post` | Create a new post |
+| DELETE | `/feed/post/:id` | Delete a post |
 
 > **Note:** Exact endpoints may vary — refer to the `routes/` directory for the full list.
 
