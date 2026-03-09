@@ -1,7 +1,7 @@
 # Node.js REST API for Social Media Site
 
 A RESTful API backend for a social media application, built with JavaScript and Node.js. Supports real-time communication via WebSockets alongside standard HTTP endpoints.
-> **Note:** Some npm packages may be deprecated and need to be switched for different ones.
+> **Note:** Some npm packages may be deprecated and need to be switched for different ones. To my knowledge only "express-validator" could cause problems to this matter. 
 
 ## Tech Stack
 
@@ -61,18 +61,26 @@ JWT_SECRET=your_jwt_secret
 
 ## API Overview
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| PUT | `/auth/signup` | Register a new user |
-| POST | `/auth/login` | Log in and receive a token |
-| GET | `/auth/status` | Get user status |
-| PUT | `/auth/status` | Change user status |
-| PUT | `/users/:id` | Update user profile |
-| GET | `/feed/posts` | Get all posts |
-| POST | `/feed/post` | Create a new post |
-| DELETE | `/feed/post/:id` | Delete a post |
+All protected routes require an authorization token (via the `is-auth` middleware).
 
-> **Note:** Exact endpoints may vary — refer to the `routes/` directory for the full list.
+### Auth (`/auth`)
+
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| PUT | `/auth/signup` | No | Register a new user |
+| POST | `/auth/login` | No | Log in and receive a token |
+| GET | `/auth/status` | Yes | Get the current user's status |
+| PUT | `/auth/status` | Yes | Update the current user's status |
+
+### Feed (`/feed`)
+
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| GET | `/feed/posts` | Yes | Get all posts |
+| GET | `/feed/post/:postId` | Yes | Get a single post by ID |
+| POST | `/feed/post` | Yes | Create a new post |
+| PUT | `/feed/post/:postId` | Yes | Update an existing post |
+| DELETE | `/feed/post/:postId` | Yes | Delete a post |
 
 ## License
 
