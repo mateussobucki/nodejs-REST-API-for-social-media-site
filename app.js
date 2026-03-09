@@ -11,6 +11,8 @@ const { METHODS } = require('http');
 
 const app = express();
 
+const MONGO_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.mk3ycwc.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}?retryWrites=true&w=majority`
+
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'images');
@@ -63,9 +65,9 @@ app.use((error, req, res, next) => {
   });
 });
 
-mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.mk3ycwc.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}?retryWrites=true`)
+mongoose.connect(MONGO_URI)
 .then(result => {
-  const server = app.listen(8080);
+  const server = app.listen(process.env.PORT);
   const io = require('./socket').init(server);
   io.on('connection', socket => {
     console.log('Client connected')
